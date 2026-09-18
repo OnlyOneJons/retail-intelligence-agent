@@ -165,3 +165,61 @@ npm install
 npm run dev
 ```
 UI available at: `http://localhost:5176`
+
+---
+
+## 💬 Sample Operational Queries & Prompt Playbook
+
+You can test the autonomous reasoning and tool execution capabilities using the following queries directly in the UI (`http://localhost:5176`) or via API (`POST /api/v1/chat`):
+
+### 🛒 1. OmniCore Inventory & Stock Forecaster
+* ❓ **Stock Level & Velocity Check:**
+  > `"Check current stock level and reservation velocity for SKU-PROMO-104."`
+  * **Tool Invoked:** `get_omnicore_stock_inventory`
+  * **Expected Output:** Returns available stock (1,420 units), reserved buffer (80 units), velocity (15 orders/min), and warehouse location (`WH-LONDON-01`).
+* ❓ **Flash-Sale Stockout Risk Analysis:**
+  > `"Is there any stockout risk for Black Friday flash sale on SKU-AIRMAX-99?"`
+  * **Tool Invoked:** `get_omnicore_stock_inventory`
+  * **Expected Output:** Compares real-time checkout velocity against available stock and predicts hours remaining until exhaustion.
+
+---
+
+### 💳 2. ClearSettle Payment Routing & Fee Advisor
+* ❓ **Acquirer Health & Fee Savings Audit:**
+  > `"What is the current health of our payment acquirers and how many basis points are we saving?"`
+  * **Tool Invoked:** `get_clearsettle_gateway_metrics`
+  * **Expected Output:** Summarizes active acquirers (Adyen: 98 bps, Stripe: 140 bps, Worldpay: Degraded), reporting +42 bps savings over £4.89M settled GMV.
+* ❓ **Gateway Outage Triage:**
+  > `"Explain why Worldpay is experiencing latency spikes and recommend the best fallback gateway."`
+  * **Tool Invoked:** `get_clearsettle_gateway_metrics`
+  * **Expected Output:** Diagnoses degraded latency (420ms) on Worldpay and recommends shifting traffic to Adyen or Chase.
+
+---
+
+### 🏪 3. EdgePulse 500-Store Fleet & Offline Sync Triage
+* ❓ **Store Node Synchronization Diagnostics:**
+  > `"Check if store #104 has any CRDT vector clock divergence or offline transaction backlog."`
+  * **Tool Invoked:** `get_edgepulse_fleet_health(store_id="104")`
+  * **Expected Output:** Inspects in-store SQLite WAL buffer (48 transactions queued), vector clock state (`cloud: 1204, store: 1252`), and TPM 2.0 encryption.
+* ❓ **Fleet-Wide Offline Resiliency Overview:**
+  > `"How many stores are currently running in offline resilient mode across our nationwide fleet?"`
+  * **Tool Invoked:** `get_edgepulse_fleet_health()`
+  * **Expected Output:** Confirms 487/500 stores online, 13 operating smoothly in offline buffered mode with 18ms sync latency.
+
+---
+
+### 🛡️ 4. Human-in-the-Loop (HITL) Mutating Actions (Requires Operator Authorization)
+* ⚡ **Warehouse Stock Rebalancing:**
+  > `"Rebalance 500 units of SKU-104 from WH-LONDON-01 to WH-MANCHESTER."`
+  * **Behavior:** Formulates transfer `TRF-SKU-998`, pauses graph execution, and triggers the **HITL Confirmation Modal** in the UI.
+* ⚡ **Least-Cost Routing Override:**
+  > `"Route all European checkout traffic to Adyen as primary and Stripe as fallback."`
+  * **Behavior:** Prepares policy `POL-2026-LCR-EU` and requires explicit operator sign-off before applying routing adjustments.
+
+---
+
+### 🌐 5. Cross-Platform Unified SRE Sentinel
+* ❓ **Full-Platform Health Status:**
+  > `"Give me a full executive health status across inventory, payment gateway savings, and store fleet connectivity."`
+  * **Behavior:** Triggers multi-tool parallel execution across all 3 microservices and delivers a consolidated executive telemetry summary.
+
