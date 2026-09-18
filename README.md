@@ -1,6 +1,14 @@
 # 🤖 Retail Intelligence Agent
 
+[![Branch](https://img.shields.io/badge/Branch-public%2Fdevelopment-blue.svg)](#)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-green.svg)](#)
+[![Security](https://img.shields.io/badge/Security-Protected%20Main%20Gate-purple.svg)](#)
+
 > **Production-Ready FastAPI + LangGraph AI Copilot Microservice for Enterprise Retail Operations.**
+
+---
+
+![Retail Intelligence Copilot Platform](assets/presentation.png)
 
 ---
 
