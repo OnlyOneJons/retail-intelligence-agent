@@ -8,6 +8,10 @@
 
 ---
 
+![Retail Intelligence Copilot Platform](assets/presentation.png)
+
+---
+
 ## 🎯 Architecture
 
 This service implements stateful multi-agent workflows using **LangGraph** exposed over a high-performance **FastAPI** REST and Server-Sent Events (SSE) streaming API.
