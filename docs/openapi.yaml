@@ -1,0 +1,47 @@
+openapi: 3.1.0
+info:
+  title: Retail Intelligence Agent API
+  version: 1.0.0
+  description: Enterprise AI Agent & Operations Copilot Microservice with LangGraph
+paths:
+  /api/v1/health:
+    get:
+      summary: Health & Readiness Probe
+      responses:
+        '200':
+          description: Service is healthy
+  /api/v1/metrics:
+    get:
+      summary: Prometheus Telemetry Metrics
+      responses:
+        '200':
+          description: Metrics exported
+  /api/v1/chat:
+    post:
+      summary: Execute State Graph Chat Turn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                thread_id:
+                  type: string
+                  default: default-thread
+                domain:
+                  type: string
+                  default: general
+      responses:
+        '200':
+          description: Agent response generated successfully
+  /api/v1/chat/stream:
+    post:
+      summary: Stream State Graph Events via SSE
+      responses:
+        '200':
+          description: Server-Sent Events stream of agent thought and response deltas
